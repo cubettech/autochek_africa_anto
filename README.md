@@ -36,7 +36,7 @@ Autochek Assignement for building API's for automotive technology and financial 
 ```bash
 $ npm install
 
-- Rename .env-example to .env and modify the values if required
+- Rename `.env-example` file to `.env` and modify the values if required
 
 ```
 
@@ -53,6 +53,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API Documentation
+ - For seeing API documentation navigate {host}:{post}/api/docs
+ - eg: http://localhost:3000/api/docs 
+
 ## Run tests
 
 ```bash
@@ -68,5 +72,5 @@ $ npm run test:cov
 
 ## Stay in touch
 
-- Author - [Anto Abraham(anto.abraham@cubettech.com)]
+- Author - Anto Abraham(anto.abraham@cubettech.com)
 
