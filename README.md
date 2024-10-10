@@ -24,7 +24,7 @@
 
 ## Description
 
-Autochek Assignement for building API's for automotive technology and financial services. It is built using nest.js framework. Technologies used are 
+Autochek Assignment for building API's for automotive technology and financial services. It is built using nest.js framework. Technologies used are 
 
 - nest.js
 - Typescript
