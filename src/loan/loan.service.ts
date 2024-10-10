@@ -1,11 +1,11 @@
-import { 
-    Injectable, 
-    NotFoundException, 
-    ConflictException, 
-    UnprocessableEntityException, 
-    Logger, 
-    HttpException, 
-    HttpStatus 
+import {
+    Injectable,
+    NotFoundException,
+    ConflictException,
+    UnprocessableEntityException,
+    Logger,
+    HttpException,
+    HttpStatus
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -105,7 +105,6 @@ export class LoanService {
             this.logger.error(error);
             throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
         }
-        
     }
 
     async applicationExist(email: string, vehicle: Partial<Vehicle>) {
