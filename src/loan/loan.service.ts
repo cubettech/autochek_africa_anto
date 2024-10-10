@@ -1,4 +1,12 @@
-import { Injectable, NotFoundException, ConflictException, UnprocessableEntityException } from '@nestjs/common';
+import { 
+    Injectable, 
+    NotFoundException, 
+    ConflictException, 
+    UnprocessableEntityException, 
+    Logger, 
+    HttpException, 
+    HttpStatus 
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Loan } from '../entities/sqlite/loan.entity';
@@ -11,6 +19,8 @@ import { VehicleService } from '../vehicle/vehicle.service';
 
 @Injectable()
 export class LoanService {
+
+    private readonly logger = new Logger(LoanService.name);
 
     constructor(
         @InjectRepository(Loan)
@@ -34,9 +44,16 @@ export class LoanService {
         // Here perfom some checking for the applicant's loan eligibility
         await this.loanEligibility(loanApplicationDto, vehicle);
 
-        const loan = this.loanRepository.create(loanApplicationDto);
-        loan.vehicle = vehicle; // assign vehicle reference
-        return await this.loanRepository.save(loan);
+        try {
+            const loan = this.loanRepository.create(loanApplicationDto);
+            loan.vehicle = vehicle; // assign vehicle reference
+            return await this.loanRepository.save(loan);
+        } catch (error) {
+            const errorMessage = `Error on creating a loan application`;
+            this.logger.error(error);
+            throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     async findAll(listLoanDto: ListLoanDto) {
@@ -79,12 +96,16 @@ export class LoanService {
     }
 
     async updateStatus(id: number, updateLoanStatusDto: UpdateLoanStatusDto): Promise<Loan> {
-        const loan = await this.loanRepository.findOne({ where: { id } });
-        if (!loan) {
-            throw new NotFoundException(`Loan application not found`);
+        const loan = await this.findOne(id);
+        try {
+            loan.status = updateLoanStatusDto.status;
+            return await this.loanRepository.save(loan);
+        } catch (error) {
+            const errorMessage = `Error on update a loan application status`;
+            this.logger.error(error);
+            throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
         }
-        loan.status = updateLoanStatusDto.status;
-        return await this.loanRepository.save(loan);
+        
     }
 
     async applicationExist(email: string, vehicle: Partial<Vehicle>) {

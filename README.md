@@ -54,7 +54,7 @@ $ npm run start:prod
 ```
 
 ## API Documentation
- - For seeing API documentation navigate {host}:{post}/api/docs
+ - For seeing API documentation navigate to {host}:{post}/api/docs
  - eg: http://localhost:3000/api/docs 
 
 ## Run tests

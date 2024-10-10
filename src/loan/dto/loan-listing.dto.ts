@@ -1,4 +1,4 @@
-import { IsOptional, IsEnum, IsInt, Min, IsString } from 'class-validator';
+import { IsOptional, IsEnum, IsInt, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { SortOrderEnum } from '../../enums/sort-order.enum';
